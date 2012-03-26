@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+pear channel-discover pear.symfony.com
+COMPONENTS="BrowserKit ClassLoader Config Console CssSelector DependencyInjection DoctrineBridge DomCrawler Finder Form Locale MonologBridge Process Routing Security Serializer Templating Translation TwigBridge Validator Yaml"
+for component in $COMPONENTS
+do
+        pear install symfony2/$component
+done
+pear channel-discover pear.doctrine-project.org
+pear install doctrine/DoctrineORM

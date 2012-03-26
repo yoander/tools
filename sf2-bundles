@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+VERSION=$1
+[[ '' == $VERSION ]] && { echo "Debe especifícar la versión de Symfony2"; exit; }
+wget  http://symfony.com/download?v=Symfony_Standard_Vendors_$VERSION.tgz -P /tmp
+tar xzvf /tmp/Symfony_Standard_Vendors_$VERSION.tgz -C /tmp
+# Suppose you use sudo
+sudo rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/symfony/src/Symfony/{Bundle,Bridge} /usr/share/pear/Symfony/
