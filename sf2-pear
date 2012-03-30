@@ -1,9 +1,28 @@
+#
+# Copyleft Flossblog
+# Licence: GPL
+#
 #!/usr/bin/env bash
+if (($1 == 'update'))
+then
+    pear update -c symfony2
+    pear update -c doctrine
+    pear update -c twig
+    exit
+fi
+
+#Symfony 2
 pear channel-discover pear.symfony.com
 COMPONENTS="BrowserKit ClassLoader Config Console CssSelector DependencyInjection DoctrineBridge DomCrawler Finder Form Locale MonologBridge Process Routing Security Serializer Templating Translation TwigBridge Validator Yaml"
 for component in $COMPONENTS
 do
-        pear install symfony2/$component
+    pear install symfony2/$component
 done
+
+# Doctrine ORM
 pear channel-discover pear.doctrine-project.org
 pear install doctrine/DoctrineORM
+
+#Twig
+pear channel-discover pear.twig-project.org
+pear install twig/Twig

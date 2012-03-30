@@ -1,3 +1,7 @@
+#
+# Copyleft Flossblog
+# Licence: GPL
+#
 #!/usr/bin/env bash
 VERSION=$1
 [[ '' == $VERSION ]] && { echo "Debe especifícar la versión de Symfony2"; exit; }
@@ -6,3 +10,11 @@ tar xzvf /tmp/Symfony_Standard_Vendors_$VERSION.tgz -C /tmp
 # Suppose you use sudo
 sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/symfony/src/Symfony/{Bundle,Bridge} /usr/share/pear/Symfony/
+sudo rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/bundles/Symfony/Bundle /usr/share/pear/Symfony/
+sudo rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/bundles/{JMS,Sensio} /usr/share/php/
+sudo rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/monolog/src/Monolog /usr/share/php/
+sudo rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/assetic/src/Assetic /usr/share/php/
