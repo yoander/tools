@@ -18,3 +18,5 @@ sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/monolog/src/Monolog /usr/share/php/
 sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/assetic/src/Assetic /usr/share/php/
+#Metadata
+#Twig text extension
