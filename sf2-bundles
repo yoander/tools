@@ -18,6 +18,13 @@ sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/monolog/src/Monolog /usr/share/php/
 sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/assetic/src/Assetic /usr/share/php/
+
+# Filesystem component
+# Filesystem is a sf2 component but it is not
+# avalaible under pear install so here is my hack
+rsync -avz --no-p --no-o --no-g \
+/tmp/Symfony/vendor/symfony/src/Symfony/Component/Filesystem /usr/share/pear/Symfony/Component/
+
 #Metadata
 sudo rsync -avz --no-p --no-o --no-g \
 /tmp/Symfony/vendor/metadata/src/Metadata /usr/share/php/
