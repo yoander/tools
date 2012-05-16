@@ -1,0 +1,1 @@
+#domain/url/created_on/expires_on/updated_on/type/registrant/registrar/status/nameservers

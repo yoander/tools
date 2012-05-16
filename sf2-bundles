@@ -2,30 +2,50 @@
 # Copyleft Flossblog
 # Licence: GPL
 #
-#!/usr/bin/env bash
+#/bin/bash
+#
 VERSION=$1
-[[ '' == $VERSION ]] && { echo "Debe especifícar la versión de Symfony2"; exit; }
+PATH=/usr/share/pear
+#
+# Suppose you use sudo
+#
+RSYNC="sudo rsync -avz --no-p --no-o --no-g --del"
+#
+[[ '' == $VERSION ]] && { echo "You must specify Symfony2 version"; exit; }
+[[ '' != "$2" ]] && PATH=$2
+[[ ! -d $PATH ]] && { echo "$PATH does not exists or it is not a dir"; exit; }
 wget  http://symfony.com/download?v=Symfony_Standard_Vendors_$VERSION.tgz -P /tmp
 tar xzvf /tmp/Symfony_Standard_Vendors_$VERSION.tgz -C /tmp
-# Suppose you use sudo
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/symfony/src/Symfony/{Bundle,Bridge} /usr/share/pear/Symfony/
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/bundles/Symfony/Bundle /usr/share/pear/Symfony/
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/bundles/{JMS,Sensio} /usr/share/php/
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/monolog/src/Monolog /usr/share/php/
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/assetic/src/Assetic /usr/share/php/
+#
+# Standars Bundles and Brigde
+"$RSYNC" \
+/tmp/Symfony/vendor/symfony/src/Symfony/{Bundle,Bridge} $PATH/Symfony/
+
+"$RSYNC" \
+/tmp/Symfony/vendor/bundles/Symfony/Bundle $PATH/Symfony/
+
+# JMS and Sensio Bundles
+"$RSYNC" \
+/tmp/Symfony/vendor/bundles/{JMS,Sensio} $PATH/
+
+# Monolog
+"$RSYNC" \
+/tmp/Symfony/vendor/monolog/src/Monolog $PATH/
+
+# Assetic
+"$RSYNC" \
+/tmp/Symfony/vendor/assetic/src/Assetic $PATH/
 
 # Filesystem component
 # Filesystem is a sf2 component but it is not
 # avalaible under pear install so here is my hack
-rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/symfony/src/Symfony/Component/Filesystem /usr/share/pear/Symfony/Component/
+"$RSYNC" \
+/tmp/Symfony/vendor/symfony/src/Symfony/Component/Filesystem \
+$PATH/Symfony/Component/
 
 #Metadata
-sudo rsync -avz --no-p --no-o --no-g \
-/tmp/Symfony/vendor/metadata/src/Metadata /usr/share/php/
+"$RSYNC" \
+/tmp/Symfony/vendor/metadata/src/Metadata $PATH
+
 #Twig text extension
+sudo rsync -avz --no-p --no-o --no-g \

@@ -9,6 +9,7 @@ then
     pear upgrade -c doctrine
     pear upgrade -c twig
     pear upgrade -c swift
+    #pear upgrade -c guzzle
     exit
 fi
 
@@ -31,3 +32,7 @@ pear install twig/Twig
 #Swift mailer
 pear channel-discover pear.swiftmailer.org
 pear install swift/swift
+
+#Guzzle Restful client
+pear channel-discover guzzlephp.org/pear
+pear install guzzle/guzzle
