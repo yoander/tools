@@ -1,10 +1,10 @@
+#!/usr/bin/perl
 #
 # Script to make whois for a list of domain and send alert when is near
 # to expire
-# Copyleft yoander, Licence: GPL
+# Copyleft Yoander Valdés Rodriguez, Licence: GPL
 #
 #
-#!/usr/bin/perl
 use strict;
 use warnings;
 use Log::Log4perl;
