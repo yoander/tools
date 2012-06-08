@@ -1,8 +1,8 @@
+#!/usr/bin/env bash
 #
 # Copyleft Flossblog
 # Licence: GPL
 #
-#!/usr/bin/env bash
 if [[ "$1" == "update" ]]
 then
     pear upgrade -c symfony2
@@ -10,6 +10,7 @@ then
     pear upgrade -c twig
     pear upgrade -c swift
     #pear upgrade -c guzzle
+    #pear upgrade -c Imagine
     exit
 fi
 
