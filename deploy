@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+[[ '' == $@ ]] && { echo Usage: deploy PROJECT_NAME [COMMIT]; exit; }
+HOSTNAME=$(hostname)
+GITDIR=/mnt/projects
+BASENAME=$1
+GITPRJ=$GITDIR/$BASENAME
+[[ ! -d $GITPRJ ]] && { echo $BASENAME is not under git control; exit 1; }
+VOLATILEDIR=/mnt/volatile
+VOLATILEPRJ=$VOLATILEDIR/$BASENAME
+# If no exist create the volatile project
+[[ ! -d $VOLATILEPRJ ]] && mkdir $VOLATILEPRJ && cd $VOLATILEPRJ && rm -rf *
+# Create a tar archive in  $VOLATILEPRJ and untar it
+COMMIT='HEAD'
+[[ '' != $2 ]] && COMMIT=$2
+cd $GITPRJ
+git archive --format=tar $COMMIT | (cd $VOLATILEPRJ && tar mxf -)
+
+WEBPRJ=/var/www/$BASENAME
+# If no exist create de web project in /var/www
+[[ ! -d $WEBPRJ ]] && mkdir $WEBPRJ
+
+RSYNCCMD=/usr/bin/rsync
+
+#Syncing
+$RSYNCCMD -avzmh --no-A --no-o --no-g --no-t --no-p --delete-after --filter='- Thumbs.db' --filter='- filter.txt' --filter=': /filter.txt' --filter="P cache/" --filter="P logs/" --filter="+ .htaccess" -filter='- .*' $VOLATILEPRJ/ $WEBPRJ/
+chown -Rc :apache $WEBPRJ
+exit 0
